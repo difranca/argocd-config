@@ -1,18 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
-kind: AppProject
+kind: Application
 metadata:
-  name: demo
+  name: demo-app
   namespace: argocd
 spec:
-  clusterResourceBlacklist:
-    - group: '*'
-      kind: '*'
-  destinations:
-    - name: in-cluster
-      namespace: '*'
-      server: https://kubernetes.default.svc
-  namespaceResourceWhitelist:
-    - group: '*'
-      kind: '*'
-  sourceRepos:
-    - https://github.com/difranca/argo-rollouts-demo.git
+  destination:
+    namespace: demo
+    server: https://kubernetes.default.svc
+  project: demo
+  source:
+    helm:
+      valueFiles:
+        - values.yaml
+    path: rolling
+    repoURL: https://github.com/difranca/argo-rollouts-demo.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
