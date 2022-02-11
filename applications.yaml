@@ -67,28 +67,6 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: rolling
-  namespace: argocd
-spec:
-  destination:
-    namespace: rolling
-    server: https://kubernetes.default.svc
-  project: demo
-  source:
-    helm:
-      valueFiles:
-        - values.yaml
-    path: rolling
-    repoURL: https://github.com/difranca/argo-rollouts-demo.git
-    targetRevision: HEAD
-  syncPolicy:
-    automated: {}
-    
----
-
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
   name: ab
   namespace: argocd
 spec:
